@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banana Game</title>
-
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="game-container">
         <h1>Banana Game</h1>
-
+        
+        <div id="score" class="status-display">Score: 0</div>
+        <div id="lives" class="status-display">Lives: 3</div>
         
         <div id="message"></div>
         
         <img id="puzzleImage" src="" alt="Puzzle" />
         <input type="text" id="userAnswer" placeholder="Enter your answer" />
         <button id="submitBtn" onclick="checkAnswer()">Submit</button>
+        <button id="retryBtn" style="display:none;" onclick="restartGame()">Retry</button>
 
+        <div class="progress-container">
+            <div id="progressBar"></div>
+        </div>
 
-
+        <div id="highScoreDisplay">High Score: 0</div>
     </div>
+    <script src="game.js"></script>
 </body>
 </html>
