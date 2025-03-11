@@ -58,3 +58,9 @@ function startTimer() {
         nextPuzzle();
     }, 10000);
 }
+
+function resetTimer() {
+    clearTimeout(timer);
+    progressBar.style.transition = 'none'; // Remove transition before resetting width
+    progressBar.style.width = '100%'; // Reset to full width
+}
