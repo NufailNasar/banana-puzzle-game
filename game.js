@@ -36,7 +36,7 @@ function loadPuzzle() {
         userAnswer.value = '';
         message.textContent = '';
         resetTimer();
-        setTimeout(startTimer, 50); // Delay to allow smooth transition
+        setTimeout(startTimer, 50);
     } else {
         gameOver();
     }
@@ -49,7 +49,7 @@ function startTimer() {
     setTimeout(() => {
         progressBar.style.transition = 'width 10s linear';
         progressBar.style.width = '0%';
-    }, 10); // Tiny delay to enable smooth transition
+    }, 10);
 
     timer = setTimeout(() => {
         lives--;
@@ -61,6 +61,32 @@ function startTimer() {
 
 function resetTimer() {
     clearTimeout(timer);
-    progressBar.style.transition = 'none'; // Remove transition before resetting width
-    progressBar.style.width = '100%'; // Reset to full width
+    progressBar.style.transition = 'none';
+    progressBar.style.width = '100%';
+}
+
+function checkAnswer() {
+    if (currentPuzzleIndex >= puzzles.length || lives <= 0) return;
+
+    const userResponse = userAnswer.value.trim();
+    const correctAnswer = puzzles[currentPuzzleIndex].solution;
+
+    resetTimer();
+
+    if (userResponse === correctAnswer) {
+        score += 10;
+        message.textContent = "Correct! 🎉";
+    } else {
+        lives--;
+        message.textContent = "Wrong! ❌";
+    }
+
+    scoreDisplay.textContent = `Score: ${score}`;
+    livesDisplay.textContent = `Lives: ${lives}`;
+
+    if (lives <= 0) {
+        gameOver();
+    } else {
+        nextPuzzle();
+    }
 }
