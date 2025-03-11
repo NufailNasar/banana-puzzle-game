@@ -109,3 +109,32 @@ function gameOver() {
 
     highScoreDisplay.textContent = `High Score: ${highScore}`;
 }
+
+function restartGame() {
+    currentPuzzleIndex = 0;
+    score = 0;
+    lives = 3;
+    scoreDisplay.textContent = `Score: ${score}`;
+    livesDisplay.textContent = `Lives: ${lives}`;
+    message.textContent = "";
+    submitBtn.style.display = "block";
+    retryBtn.style.display = "none";
+    loadPuzzle();
+}
+
+highScoreDisplay.textContent = `High Score: ${highScore}`;
+loadPuzzle();
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("getUser.php")
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById("username").textContent = data.username;
+            } else {
+                document.getElementById("username").textContent = "Guest";
+            }
+        })
+        .catch(error => console.error("Error fetching user:", error));
+});
