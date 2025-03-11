@@ -41,3 +41,20 @@ function loadPuzzle() {
         gameOver();
     }
 }
+
+function startTimer() {
+    progressBar.style.width = '100%';
+    progressBar.style.backgroundColor = '#4CAF50';
+
+    setTimeout(() => {
+        progressBar.style.transition = 'width 10s linear';
+        progressBar.style.width = '0%';
+    }, 10); // Tiny delay to enable smooth transition
+
+    timer = setTimeout(() => {
+        lives--;
+        livesDisplay.textContent = `Lives: ${lives}`;
+        message.textContent = "Time's up! ❌";
+        nextPuzzle();
+    }, 10000);
+}
