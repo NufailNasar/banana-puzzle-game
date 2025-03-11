@@ -90,3 +90,22 @@ function checkAnswer() {
         nextPuzzle();
     }
 }
+
+function nextPuzzle() {
+    currentPuzzleIndex++;
+    setTimeout(loadPuzzle, 1000);
+}
+
+function gameOver() {
+    message.textContent = `Game Over! Final Score: ${score}`;
+    submitBtn.style.display = "none";
+    retryBtn.style.display = "block";
+    clearTimeout(timer);
+
+    if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('highScore', highScore);
+    }
+
+    highScoreDisplay.textContent = `High Score: ${highScore}`;
+}
