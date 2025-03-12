@@ -43,19 +43,26 @@ function loadPuzzle() {
 }
 
 function startTimer() {
+    progressBar.style.transition = 'none';
     progressBar.style.width = '100%';
-    progressBar.style.backgroundColor = '#4CAF50';
 
     setTimeout(() => {
         progressBar.style.transition = 'width 10s linear';
         progressBar.style.width = '0%';
-    }, 10);
+    }, 50);
 
     timer = setTimeout(() => {
-        lives--;
+        if (lives > 0) {
+            lives--;
+        }
         livesDisplay.textContent = `Lives: ${lives}`;
         message.textContent = "Time's up! ❌";
-        nextPuzzle();
+
+        if (lives <= 0) {
+            gameOver();
+        } else {
+            nextPuzzle();
+        }
     }, 10000);
 }
 
@@ -77,7 +84,9 @@ function checkAnswer() {
         score += 10;
         message.textContent = "Correct! 🎉";
     } else {
-        lives--;
+        if (lives > 0) {
+            lives--;
+        }
         message.textContent = "Wrong! ❌";
     }
 
@@ -108,6 +117,7 @@ function gameOver() {
     }
 
     highScoreDisplay.textContent = `High Score: ${highScore}`;
+    livesDisplay.textContent = `Lives: 0`;
 }
 
 function restartGame() {
