@@ -102,8 +102,17 @@ function checkAnswer() {
 
 function nextPuzzle() {
     currentPuzzleIndex++;
-    setTimeout(loadPuzzle, 1000);
+
+    if (currentPuzzleIndex >= puzzles.length) {
+        currentPuzzleIndex = 0;
+    }
+
+    puzzleImage.src = puzzles[currentPuzzleIndex].image;
+    userAnswer.value = '';
+    message.textContent = '';
+    startTimer();
 }
+
 
 function gameOver() {
     message.textContent = `Game Over! Final Score: ${score}`;
