@@ -29,47 +29,39 @@ const retryBtn = document.getElementById('retryBtn');
 const submitBtn = document.getElementById('submitBtn');
 const progressBar = document.getElementById('progressBar');
 
-
 function loadPuzzle() {
     if (currentPuzzleIndex < puzzles.length) {
         puzzleImage.src = puzzles[currentPuzzleIndex].image;
         userAnswer.value = '';
         message.textContent = '';
         resetTimer();
-        setTimeout(startTimer, 50);
+        setTimeout(startTimer, 50); // Delay to allow smooth transition
     } else {
         gameOver();
     }
 }
 
 function startTimer() {
-    progressBar.style.transition = 'none';
     progressBar.style.width = '100%';
+    progressBar.style.backgroundColor = '#4CAF50';
 
     setTimeout(() => {
         progressBar.style.transition = 'width 10s linear';
         progressBar.style.width = '0%';
-    }, 50);
+    }, 10); // Tiny delay to enable smooth transition
 
     timer = setTimeout(() => {
-        if (lives > 0) {
-            lives--;
-        }
+        lives--;
         livesDisplay.textContent = `Lives: ${lives}`;
         message.textContent = "Time's up! ❌";
-
-        if (lives <= 0) {
-            gameOver();
-        } else {
-            nextPuzzle();
-        }
+        nextPuzzle();
     }, 10000);
 }
 
 function resetTimer() {
     clearTimeout(timer);
-    progressBar.style.transition = 'none';
-    progressBar.style.width = '100%';
+    progressBar.style.transition = 'none'; // Remove transition before resetting width
+    progressBar.style.width = '100%'; // Reset to full width
 }
 
 function checkAnswer() {
@@ -78,15 +70,13 @@ function checkAnswer() {
     const userResponse = userAnswer.value.trim();
     const correctAnswer = puzzles[currentPuzzleIndex].solution;
 
-    resetTimer();
+    resetTimer(); // Stop the timer when answer is checked
 
     if (userResponse === correctAnswer) {
         score += 10;
         message.textContent = "Correct! 🎉";
     } else {
-        if (lives > 0) {
-            lives--;
-        }
+        lives--;
         message.textContent = "Wrong! ❌";
     }
 
@@ -102,17 +92,8 @@ function checkAnswer() {
 
 function nextPuzzle() {
     currentPuzzleIndex++;
-
-    if (currentPuzzleIndex >= puzzles.length) {
-        currentPuzzleIndex = 0;
-    }
-
-    puzzleImage.src = puzzles[currentPuzzleIndex].image;
-    userAnswer.value = '';
-    message.textContent = '';
-    startTimer();
+    setTimeout(loadPuzzle, 1000);
 }
-
 
 function gameOver() {
     message.textContent = `Game Over! Final Score: ${score}`;
@@ -126,7 +107,6 @@ function gameOver() {
     }
 
     highScoreDisplay.textContent = `High Score: ${highScore}`;
-    livesDisplay.textContent = `Lives: 0`;
 }
 
 function restartGame() {
@@ -143,17 +123,3 @@ function restartGame() {
 
 highScoreDisplay.textContent = `High Score: ${highScore}`;
 loadPuzzle();
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    fetch("getUser.php")
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById("username").textContent = data.username;
-            } else {
-                document.getElementById("username").textContent = "Guest";
-            }
-        })
-        .catch(error => console.error("Error fetching user:", error));
-});
