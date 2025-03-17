@@ -110,6 +110,7 @@ function checkAnswer() {
 
     if (userResponse === correctAnswer) {
         score += 10;
+        lives++;
         message.textContent = "Correct! 🎉";
     } else {
         lives--;
@@ -168,7 +169,7 @@ function restartGame() {
 
     // Play the background music when the game restarts
     backgroundMusic.play();
-    
+
     fetchPuzzle(); // Start a new puzzle
 }
 
