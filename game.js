@@ -14,6 +14,7 @@ const highScoreDisplay = document.getElementById('highScoreDisplay');
 const retryBtn = document.getElementById('retryBtn');
 const submitBtn = document.getElementById('submitBtn');
 const progressBar = document.getElementById('progressBar');
+const gameOverSound = new Audio('Sound/game-over.mp3');
 
 // Fetching a new puzzle from the PHP backend
 async function fetchPuzzle() {
@@ -132,6 +133,9 @@ function gameOver() {
     submitBtn.style.display = "none";
     retryBtn.style.display = "block";
     clearTimeout(timer); // Stop the timer
+
+    // Game-over sound
+    gameOverSound.play();
 
     if (score > highScore) {
         highScore = score;
