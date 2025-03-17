@@ -126,11 +126,12 @@ function nextPuzzle() {
     }, 1000);
 }
 
+// End the game when lives are 0
 function gameOver() {
     message.textContent = `Game Over! Final Score: ${score}`;
     submitBtn.style.display = "none";
     retryBtn.style.display = "block";
-    clearTimeout(timer);
+    clearTimeout(timer); // Stop the timer
 
     if (score > highScore) {
         highScore = score;
@@ -140,8 +141,8 @@ function gameOver() {
     highScoreDisplay.textContent = `High Score: ${highScore}`;
 }
 
+// Restart the game when the user clicks 'Retry'
 function restartGame() {
-    currentPuzzleIndex = 0;
     score = 0;
     lives = 3;
     scoreDisplay.textContent = `Score: ${score}`;
@@ -149,8 +150,8 @@ function restartGame() {
     message.textContent = "";
     submitBtn.style.display = "block";
     retryBtn.style.display = "none";
-    loadPuzzle();
+    fetchPuzzle(); // Start a new puzzle
 }
 
 highScoreDisplay.textContent = `High Score: ${highScore}`;
-loadPuzzle();
+fetchPuzzle(); // Fetch the first puzzle when the page loads
