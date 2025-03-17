@@ -15,6 +15,12 @@ const retryBtn = document.getElementById('retryBtn');
 const submitBtn = document.getElementById('submitBtn');
 const progressBar = document.getElementById('progressBar');
 const gameOverSound = new Audio('Sound/game-over.mp3');
+const backgroundMusic = new Audio('Sound/Homeandrank.mp3');
+
+// Restart music when it ends
+backgroundMusic.addEventListener('ended', () => {
+    backgroundMusic.play();
+});
 
 // Fetching a new puzzle from the PHP backend
 async function fetchPuzzle() {
@@ -143,6 +149,11 @@ function gameOver() {
     }
 
     highScoreDisplay.textContent = `High Score: ${highScore}`;
+
+    // Stop the background music when the game is over
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
 }
 
 // Restart the game when the user clicks 'Retry'
@@ -154,6 +165,10 @@ function restartGame() {
     message.textContent = "";
     submitBtn.style.display = "block";
     retryBtn.style.display = "none";
+
+    // Play the background music when the game restarts
+    backgroundMusic.play();
+    
     fetchPuzzle(); // Start a new puzzle
 }
 
