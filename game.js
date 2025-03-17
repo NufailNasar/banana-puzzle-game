@@ -34,16 +34,29 @@ async function fetchPuzzle() {
     }
 }
 
+// Load the current puzzle and start the timer
 function loadPuzzle() {
-    if (currentPuzzleIndex < puzzles.length) {
-        puzzleImage.src = puzzles[currentPuzzleIndex].image;
-        userAnswer.value = '';
-        message.textContent = '';
-        resetTimer();
-        setTimeout(startTimer, 50); // Delay to allow smooth transition
-    } else {
-        gameOver();
+    if (puzzles.length === 0) {
+        console.error("No puzzle data available.");
+        return;
     }
+
+    // Clear any previous "Time's up!" message
+    message.textContent = ""; // Reset the message
+
+    const puzzle = puzzles[puzzles.length - 1]; // Get the latest puzzle
+
+    const puzzleImg = document.getElementById('puzzleImage');
+    if (puzzleImg) {
+        puzzleImg.src = puzzle.image;
+        puzzleImg.alt = "Puzzle Image";
+    } else {
+        console.error("Image element not found in DOM.");
+    }
+
+    currentPuzzle = puzzle;
+    resetTimer(); // Reset and start a fresh timer for the new puzzle
+    startTimer(); // Start the timer for the new puzzle
 }
 
 function startTimer() {
