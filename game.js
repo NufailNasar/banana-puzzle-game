@@ -59,27 +59,37 @@ function loadPuzzle() {
     startTimer(); // Start the timer for the new puzzle
 }
 
+// Start the timer for each puzzle
 function startTimer() {
     progressBar.style.width = '100%';
     progressBar.style.backgroundColor = '#4CAF50';
-
+    
     setTimeout(() => {
-        progressBar.style.transition = 'width 10s linear';
+        progressBar.style.transition = 'width 30s linear';
         progressBar.style.width = '0%';
-    }, 10); // Tiny delay to enable smooth transition
+    }, 10);
 
+    // Timer ends after 30 seconds
     timer = setTimeout(() => {
-        lives--;
-        livesDisplay.textContent = `Lives: ${lives}`;
-        message.textContent = "Time's up! ❌";
-        nextPuzzle();
-    }, 10000);
+        if (lives > 0) {
+            lives--;
+            livesDisplay.textContent = `Lives: ${lives}`;
+            message.textContent = "Time's up! ❌";
+
+            if (lives > 0) {
+                nextPuzzle(); // Load next puzzle automatically
+            } else {
+                gameOver(); // Game over if no lives are left
+            }
+        }
+    }, 30000); // 30 seconds time limit
 }
 
+// Reset the timer (called after user answers or time is up)
 function resetTimer() {
-    clearTimeout(timer);
-    progressBar.style.transition = 'none'; // Remove transition before resetting width
-    progressBar.style.width = '100%'; // Reset to full width
+    clearTimeout(timer); // Clears the previous timer
+    progressBar.style.transition = 'none';
+    progressBar.style.width = '100%';
 }
 
 function checkAnswer() {
