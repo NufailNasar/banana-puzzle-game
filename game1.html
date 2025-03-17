@@ -50,11 +50,19 @@
         <h1>Welcome to the Banana Game!</h1>
         <button class="start-btn" onclick="startGame()">Click Here To Start</button>
     </div>
+    <!-- Added the audio for the game start sound -->
+    <audio id="gameStartSound" src="Sound/game-start.mp3"></audio>
 	<script>
         function startGame() {
-            window.location.href = "game.html";
+            // Play the sound
+            const sound = document.getElementById('gameStartSound');
+            sound.play();
+
+            // Redirect to the game page after a short delay
+            setTimeout(function() {
+                window.location.href = "game.html";
+            }, 1000);
         }
     </script>
-
 </body>
 </html>
