@@ -92,13 +92,14 @@ function resetTimer() {
     progressBar.style.width = '100%';
 }
 
+// Check the user's answer and update score, lives, etc.
 function checkAnswer() {
-    if (currentPuzzleIndex >= puzzles.length || lives <= 0) return;
+    if (!currentPuzzle || lives <= 0) return;
 
-    const userResponse = userAnswer.value.trim();
-    const correctAnswer = puzzles[currentPuzzleIndex].solution;
+    const userResponse = parseInt(userAnswer.value.trim(), 10);
+    const correctAnswer = parseInt(currentPuzzle.solution, 10);
 
-    resetTimer(); // Stop the timer when answer is checked
+    resetTimer();
 
     if (userResponse === correctAnswer) {
         score += 10;
@@ -112,15 +113,17 @@ function checkAnswer() {
     livesDisplay.textContent = `Lives: ${lives}`;
 
     if (lives <= 0) {
-        gameOver();
+        gameOver(); // Game over when lives reach 0
     } else {
         nextPuzzle();
     }
 }
 
+// Load the next puzzle after a short delay
 function nextPuzzle() {
-    currentPuzzleIndex++;
-    setTimeout(loadPuzzle, 1000);
+    setTimeout(() => {
+        fetchPuzzle();
+    }, 1000);
 }
 
 function gameOver() {
