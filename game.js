@@ -15,7 +15,7 @@ const retryBtn = document.getElementById('retryBtn');
 const submitBtn = document.getElementById('submitBtn');
 const progressBar = document.getElementById('progressBar');
 const gameOverSound = new Audio('Sound/game-over.mp3');
-const backgroundMusic = new Audio('Sound/Homeandrank.mp3');
+const backgroundMusic = document.getElementById('backgroundMusic');
 
 // Restart music when it ends
 backgroundMusic.addEventListener('ended', () => {
@@ -152,7 +152,6 @@ function gameOver() {
     highScoreDisplay.textContent = `High Score: ${highScore}`;
 
     // Stop the background music when the game is over
-    const backgroundMusic = document.getElementById('backgroundMusic');
     backgroundMusic.pause();
     backgroundMusic.currentTime = 0;
 }
@@ -168,7 +167,9 @@ function restartGame() {
     retryBtn.style.display = "none";
 
     // Play the background music when the game restarts
+    if (backgroundMusic.paused) {
     backgroundMusic.play();
+    }
 
     fetchPuzzle(); // Start a new puzzle
 }
