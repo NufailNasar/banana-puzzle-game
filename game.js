@@ -99,6 +99,13 @@ function resetTimer() {
     progressBar.style.width = '100%';
 }
 
+// Load the next puzzle after a short delay
+function nextPuzzle() {
+    setTimeout(() => {
+        fetchPuzzle();
+    }, 1000);
+}
+
 // Check the user's answer and update score, lives, etc.
 function checkAnswer() {
     if (!currentPuzzle || lives <= 0) return;
@@ -125,13 +132,6 @@ function checkAnswer() {
     } else {
         nextPuzzle();
     }
-}
-
-// Load the next puzzle after a short delay
-function nextPuzzle() {
-    setTimeout(() => {
-        fetchPuzzle();
-    }, 1000);
 }
 
 // End the game when lives are 0
