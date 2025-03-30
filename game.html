@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <audio id="backgroundMusic" autoplay loop>
+		<source src="Sound/Homeandrank.mp3" type="audio/mp3">
+		Browser does not support the audio element.
+	</audio>
+
+    <div class="profile-container">
+        <img src="Pic/profile.png" alt="Profile" class="profile-icon">
+        <span id="username">Loading...</span>
+        <button id="logoutBtn" onclick="logout()">Logout</button>
+    </div>
     <div class="game-container">
         <h1>Banana Game</h1>
         
@@ -27,5 +37,11 @@
         <div id="highScoreDisplay">High Score: 0</div>
     </div>
     <script src="game.js"></script>
+    <script src="user.js"></script>
+    <script>
+        function logout() {
+            window.location.href = "logout.php";
+        }
+		</script>
 </body>
 </html>
